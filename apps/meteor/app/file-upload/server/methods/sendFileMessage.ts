@@ -168,7 +168,7 @@ export const sendFileMessage = async (
 	},
 ): Promise<boolean> => {
 	const user = await Users.findOneById(userId, { projection: { services: 0 } });
-
+	console.log('this log is to display send file messages function is used to send images in a thread also');
 	if (!user) {
 		throw new Meteor.Error('error-invalid-user', 'Invalid user', {
 			method: 'sendFileMessage',

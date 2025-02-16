@@ -102,7 +102,7 @@ export type UploadsAPI = {
 	cancel(id: Upload['id']): void;
 	send(
 		file: File,
-		{ description, msg, t, e2e }: { description?: string; msg?: string; t?: IMessage['t']; e2e?: IMessage['e2e'] },
+		{ description, msg, t, e2e, tshow }: { description?: string; msg?: string; t?: IMessage['t']; e2e?: IMessage['e2e']; tshow?: boolean },
 		getContent?: (fileId: string, fileUrl: string) => Promise<IE2EEMessage['content']>,
 		fileContent?: { raw: Partial<IUpload>; encrypted: IE2EEMessage['content'] },
 	): Promise<void>;
@@ -144,7 +144,7 @@ export type ChatAPI = {
 	ActionManager: IActionManager;
 
 	readonly flows: {
-		readonly uploadFiles: (files: readonly File[], resetFileInput?: () => void) => Promise<void>;
+		readonly uploadFiles: (files: readonly File[], tshow?: boolean, resetFileInput?: () => void) => Promise<void>;
 		readonly sendMessage: ({
 			text,
 			tshow,

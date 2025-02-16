@@ -25,7 +25,7 @@ export async function executeSendMessage(uid: IUser['_id'], message: AtLeast<IMe
 			method: 'sendMessage',
 		});
 	}
-
+	console.log('tshow recieved in send messages method in execute send messages ', message.tshow);
 	if (message.tmid && !settings.get('Threads_enabled')) {
 		throw new Meteor.Error('error-not-allowed', 'not-allowed', {
 			method: 'sendMessage',

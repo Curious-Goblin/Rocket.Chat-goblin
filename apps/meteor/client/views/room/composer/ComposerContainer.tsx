@@ -25,7 +25,7 @@ import { useIsSelecting } from '../MessageList/contexts/SelectedMessagesContext'
 
 const ComposerContainer = ({ children, ...props }: ComposerMessageProps): ReactElement => {
 	const room = useRoom();
-
+	// console.log('props recieved by composer container ', props.tshow);
 	const canJoinWithoutCode = usePermission('join-without-join-code');
 	const mustJoinWithCode = !props.subscription && room.joinCodeRequired && !canJoinWithoutCode;
 

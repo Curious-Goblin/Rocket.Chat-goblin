@@ -142,6 +142,7 @@ export class ChatMessages implements ChatAPI {
 			tmid?: IMessage['_id'];
 			uid: IUser['_id'] | null;
 			actionManager: IActionManager;
+			tshow?: boolean;
 		},
 	) {
 		const { rid, tmid } = params;

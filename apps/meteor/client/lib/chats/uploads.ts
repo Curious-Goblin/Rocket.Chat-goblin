@@ -37,12 +37,14 @@ const send = async (
 		rid,
 		tmid,
 		t,
+		// tshow,
 	}: {
 		description?: string;
 		msg?: string;
 		rid: string;
 		tmid?: string;
 		t?: IMessage['t'];
+		tshow?: boolean;
 	},
 	getContent?: (fileId: string, fileUrl: string) => Promise<IE2EEMessage['content']>,
 	fileContent?: { raw: Partial<IUpload>; encrypted: IE2EEMessage['content'] },
@@ -120,6 +122,7 @@ const send = async (
 					if (getContent) {
 						content = await getContent(result.file._id, result.file.url);
 					}
+					console.log(' send used in uploading in channel ');
 
 					await sdk.rest.post(`/v1/rooms.mediaConfirm/${rid}/${result.file._id}`, {
 						msg,
@@ -170,8 +173,8 @@ export const createUploadsAPI = ({ rid, tmid }: { rid: IRoom['_id']; tmid?: IMes
 	cancel,
 	send: (
 		file: File,
-		{ description, msg, t }: { description?: string; msg?: string; t?: IMessage['t'] },
+		{ description, msg, t, tshow }: { description?: string; msg?: string; t?: IMessage['t']; tshow?: boolean },
 		getContent?: (fileId: string, fileUrl: string) => Promise<IE2EEMessage['content']>,
 		fileContent?: { raw: Partial<IUpload>; encrypted: IE2EEMessage['content'] },
-	): Promise<void> => send(file, { description, msg, rid, tmid, t }, getContent, fileContent),
+	): Promise<void> => send(file, { description, msg, rid, tmid, t, tshow }, getContent, fileContent),
 });

@@ -23,7 +23,8 @@ const getHeightAndWidthFromDataUrl = (dataURL: string): Promise<{ height: number
 	});
 };
 
-export const uploadFiles = async (chat: ChatAPI, files: readonly File[], resetFileInput?: () => void): Promise<void> => {
+export const uploadFiles = async (chat: ChatAPI, files: readonly File[], tshow?: boolean, resetFileInput?: () => void): Promise<void> => {
+	console.log(' the value of tshow in upload files ', tshow);
 	const replies = chat.composer?.quotedMessages.get() ?? [];
 
 	const msg = await prependReplies('', replies);
@@ -43,6 +44,7 @@ export const uploadFiles = async (chat: ChatAPI, files: readonly File[], resetFi
 			{
 				msg,
 				...extraData,
+				tshow,
 			},
 			getContent,
 			fileContent,

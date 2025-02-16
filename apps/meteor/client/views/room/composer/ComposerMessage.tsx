@@ -21,7 +21,7 @@ export type ComposerMessageProps = {
 	onSend?: () => void;
 	onNavigateToNextMessage?: () => void;
 	onNavigateToPreviousMessage?: () => void;
-	onUploadFiles?: (files: readonly File[]) => void;
+	onUploadFiles?: (files: readonly File[], tshow?: boolean) => void;
 	onClickSelectAll?: () => void;
 };
 
@@ -29,6 +29,7 @@ const ComposerMessage = ({ tmid, onSend, ...props }: ComposerMessageProps): Reac
 	const chat = useChat();
 	const room = useRoom();
 	const dispatchToastMessage = useToastMessageDispatch();
+	console.log(' composer message used in uploading in channel ');
 
 	const composerProps = useMemo(
 		() => ({
@@ -74,11 +75,11 @@ const ComposerMessage = ({ tmid, onSend, ...props }: ComposerMessageProps): Reac
 			},
 			onNavigateToPreviousMessage: () => chat?.messageEditing.toPreviousMessage(),
 			onNavigateToNextMessage: () => chat?.messageEditing.toNextMessage(),
-			onUploadFiles: (files: readonly File[]) => {
-				return chat?.flows.uploadFiles(files);
+			onUploadFiles: (files: readonly File[], tshow?: boolean) => {
+				return chat?.flows.uploadFiles(files, tshow);
 			},
 		}),
-		[chat?.data, chat?.flows, chat?.action, chat?.composer?.text, chat?.messageEditing, dispatchToastMessage, onSend],
+		[chat?.data, chat?.flows, chat?.action, chat?.composer?.text, chat?.messageEditing, dispatchToastMessage, onSend, props?.tshow],
 	);
 
 	const publicationReady = useReactiveValue(

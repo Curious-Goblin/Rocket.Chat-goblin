@@ -85,7 +85,7 @@ type MessageBoxProps = {
 	onEscape?: () => void;
 	onNavigateToPreviousMessage?: () => void;
 	onNavigateToNextMessage?: () => void;
-	onUploadFiles?: (files: readonly File[]) => void;
+	onUploadFiles?: (files: readonly File[], tshow?: boolean) => void;
 	tshow?: IMessage['tshow'];
 	previewUrls?: string[];
 	subscription?: ISubscription;
@@ -112,7 +112,6 @@ const MessageBox = ({
 	const unencryptedMessagesAllowed = useSetting('E2E_Allow_Unencrypted_Messages', false);
 	const isSlashCommandAllowed = !e2eEnabled || !room.encrypted || unencryptedMessagesAllowed;
 	const composerPlaceholder = useMessageBoxPlaceholder(t('Message'), room);
-
 	const [typing, setTyping] = useReducer(reducer, false);
 
 	const { isMobile } = useLayout();
@@ -321,10 +320,10 @@ const MessageBox = ({
 				return fileItem;
 			})
 			.filter((file): file is File => !!file);
-
+		console.log('Uploading files with tshow in message box:', tshow);
 		if (files.length) {
 			event.preventDefault();
-			onUploadFiles?.(files);
+			onUploadFiles?.(files, tshow);
 		}
 	});
 

@@ -62,9 +62,9 @@ const ThreadChat = ({ mainMessage }: ThreadChatProps) => {
 
 	const handleUploadFiles = useCallback(
 		(files: readonly File[]): void => {
-			chat?.flows.uploadFiles(files);
+			chat?.flows.uploadFiles(files, sendToChannel);
 		},
-		[chat?.flows],
+		[chat?.flows, sendToChannel],
 	);
 
 	const room = useRoom();
